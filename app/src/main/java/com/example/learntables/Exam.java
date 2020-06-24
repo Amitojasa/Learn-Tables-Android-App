@@ -16,6 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -29,7 +36,7 @@ public class Exam extends AppCompatActivity {
     private int answer,ansByUser,scoreGlobal,ques,numberOfQuestions;
     private boolean isCorrect;
     private Set set1,set2;
-
+    private InterstitialAd mInterstitialAd;
 
     CountDownTimer countDownTimer;
 
@@ -53,7 +60,25 @@ public class Exam extends AppCompatActivity {
         tables=intent.getStringExtra("Tables");
         range=intent.getStringExtra("Range");
 
-        numberOfQuestions=10;
+        numberOfQuestions=1;
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mInterstitialAd = new InterstitialAd(getApplicationContext());
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                endExamHelper();
+            }
+        });
 
         ans=findViewById(R.id.ans);
         quesEqn=findViewById(R.id.ques);
@@ -67,6 +92,8 @@ public class Exam extends AppCompatActivity {
         ques=1;
         generateData(Integer.parseInt(tables),Integer.parseInt(range));
         initialSet(ques);
+
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +148,7 @@ public class Exam extends AppCompatActivity {
                 if(ques<numberOfQuestions){
                     initialSet(++ques);
                 }else{
+
                     endExam();
                 }
 
@@ -167,9 +195,24 @@ public class Exam extends AppCompatActivity {
     }
 
     void endExam(){
+
+
         if(countDownTimer!=null){
             countDownTimer.cancel();
         }
+
+        if (mInterstitialAd.isLoaded()) {
+            Toast.makeText(getApplicationContext(),"loaded",Toast.LENGTH_SHORT).show();
+            mInterstitialAd.show();
+        }else{
+            Toast.makeText(getApplicationContext(),"not loaded",Toast.LENGTH_SHORT).show();
+            endExamHelper();
+        }
+
+
+    }
+
+    void endExamHelper(){
         Intent intent = new Intent(getApplicationContext(),ScoreResult.class);
         intent.putExtra("Result",Integer.toString(scoreGlobal));
         startActivity(intent);
