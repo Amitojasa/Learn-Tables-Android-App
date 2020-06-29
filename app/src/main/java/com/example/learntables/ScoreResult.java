@@ -23,8 +23,12 @@ public class ScoreResult extends AppCompatActivity {
         Intent intent = getIntent();
         String res=intent.getStringExtra("Result");
 
-        m1= MediaPlayer.create(this,R.raw.roll);
-        m1.start();
+        int r=Integer.parseInt(res);
+        if(r>5){
+            m1= MediaPlayer.create(this,R.raw.roll);
+            m1.start();
+        }
+
 
         home =findViewById(R.id.home);
         score=findViewById(R.id.result);

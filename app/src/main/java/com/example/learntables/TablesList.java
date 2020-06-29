@@ -3,65 +3,102 @@ package com.example.learntables;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+
 
 public class TablesList extends AppCompatActivity {
 
-    LinearLayout linearLayoutVertical;
-    String colorCollection[]={"#E44236","#2475B0","#10A881","#DFAF2B","#2F363F"};
+//    AdLoader.Builder builder;
+//    AdLoader adLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables_list);
-//        Intent intent=getIntent();
-        linearLayoutVertical=findViewById(R.id.llv);
-        int count=1;
-        for(int j=0;j<20;j++) {
-            LinearLayout parent = new LinearLayout(this);
-            parent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
-            params.setMarginEnd(5);
 
-            parent.setOrientation(LinearLayout.HORIZONTAL);
-            parent.setPadding(10,20,10,20);
-            linearLayoutVertical.addView(parent);
-            for (int i = 0; i < 5; i++) {
-                GradientDrawable shape = new GradientDrawable();
-                shape.setShape(GradientDrawable.RECTANGLE);
-                shape.setColor(Color.parseColor(colorCollection[j%5]));
-                shape.setCornerRadius(15);
-                Button b1 = new Button(this);
-                b1.setText(""+count);
-                b1.setLayoutParams(params);
-                b1.setTag(count);
-                b1.setBackground(shape);
-                b1.setTextColor(Color.WHITE);
-                b1.setOnClickListener(handleClick(b1));
-                parent.addView(b1);
-                count++;
-            }
-        }
+
+
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//            }
+//        });
+//        builder = new AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110");
+//
+//        new LoadAds().execute();
+////
 
     }
-    View.OnClickListener handleClick(final Button btn)  {
-        return new View.OnClickListener() {
-            public void onClick(View v) {
-//                Button btn=(Button)v;
-                int tappedBtn= Integer.parseInt(btn.getTag().toString());
+    public void tapped(View v) {
+
+                int tappedBtn= Integer.parseInt(v.getTag().toString());
                 Intent intent=new Intent(getApplicationContext(),Table.class);
                 intent.putExtra("tableNo",tappedBtn);
                 startActivity(intent);
-
-            }
-        };
     }
+
+
+//
+//    public class LoadAds extends AsyncTask{
+//
+//        @Override
+//        protected Object doInBackground(Object[] objects) {
+//
+//
+//                builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+//                    @Override
+//                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+//
+//                        TemplateView template1 = (TemplateView) findViewById(R.id.my_template1);
+//
+//                        template1.setNativeAd(unifiedNativeAd);
+//
+//                    }
+//                });
+//
+//            adLoader= builder.build();
+//
+//            adLoader.loadAd(new AdRequest.Builder().build());
+
+//
+//
+//
+//
+//                builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+//                    @Override
+//                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+//
+//                        TemplateView template2 = (TemplateView) findViewById(R.id.my_template2);
+//                        template2.setNativeAd(unifiedNativeAd);
+//
+//                    }
+//                });
+//
+//
+//             adLoader = builder.build();
+//
+//            adLoader.loadAd(new AdRequest.Builder().build());
+//
+//
+//                builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+//                    @Override
+//                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+//
+//                        TemplateView template3 = (TemplateView) findViewById(R.id.my_template3);
+//                        template3.setNativeAd(unifiedNativeAd);
+//
+//                    }
+//                });
+//
+//
+//             adLoader = builder.build();
+//
+//            adLoader.loadAd(new AdRequest.Builder().build());
+//
+//            return null;
+//        }
+//    }
+
+
 }
 

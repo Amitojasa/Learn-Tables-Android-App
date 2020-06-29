@@ -60,7 +60,7 @@ public class Exam extends AppCompatActivity {
         tables=intent.getStringExtra("Tables");
         range=intent.getStringExtra("Range");
 
-        numberOfQuestions=1;
+        numberOfQuestions=10;
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -69,7 +69,7 @@ public class Exam extends AppCompatActivity {
         });
 
         mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(String.valueOf(R.string.ad_id));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         mInterstitialAd.setAdListener(new AdListener(){
@@ -202,10 +202,10 @@ public class Exam extends AppCompatActivity {
         }
 
         if (mInterstitialAd.isLoaded()) {
-            Toast.makeText(getApplicationContext(),"loaded",Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(getApplicationContext(),"loaded",Toast.LENGTH_SHORT).show();
             mInterstitialAd.show();
         }else{
-            Toast.makeText(getApplicationContext(),"not loaded",Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(getApplicationContext(),"not loaded",Toast.LENGTH_SHORT).show();
             endExamHelper();
         }
 
