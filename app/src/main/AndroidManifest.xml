@@ -17,11 +17,20 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_id"/>
         <activity android:name=".ScoreResult"
+            android:launchMode = "singleTop"
             ></activity>
-        <activity android:name=".ExamActivity" />
-        <activity android:name=".Exam" />
-        <activity android:name=".Table" />
-        <activity android:name=".TablesList" />
+        <activity android:name=".ExamActivity"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".Exam"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".Table"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".TablesList"
+            android:launchMode = "singleTop"
+            />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

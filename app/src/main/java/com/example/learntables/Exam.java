@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -62,11 +63,6 @@ public class Exam extends AppCompatActivity {
 
         numberOfQuestions=10;
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
 
         mInterstitialAd = new InterstitialAd(getApplicationContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-9868666530260111/8846278217");
@@ -201,6 +197,8 @@ public class Exam extends AppCompatActivity {
             countDownTimer.cancel();
         }
 
+
+
         if (mInterstitialAd.isLoaded()) {
 //            Toast.makeText(getApplicationContext(),"loaded",Toast.LENGTH_SHORT).show();
             mInterstitialAd.show();
@@ -325,5 +323,14 @@ public class Exam extends AppCompatActivity {
             countDownTimer.cancel();
         }
 
+    }
+}
+
+
+class loadAds extends AsyncTask{
+    @Override
+    protected Object doInBackground(Object[] objects) {
+
+        return null;
     }
 }

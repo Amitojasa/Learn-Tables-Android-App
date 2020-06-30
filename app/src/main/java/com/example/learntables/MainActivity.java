@@ -9,17 +9,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Button learn,exam;
     private Boolean exit = false;
-
+    Thread adThread;
+    private boolean runningThread = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        adThread = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                if (!runningThread) {
+                    return;
+                }
+                loadAd();
+            }
+
+
+        };
+        adThread.start();
 
 
         learn=findViewById(R.id.learn);
@@ -40,13 +59,21 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),ExamActivity.class);
                 startActivity(intent);
             }
+
         });
 
 
-        }
+    }
 
 
-
+    public void loadAd(){
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        runningThread=false;
+    }
 
 
     @Override
