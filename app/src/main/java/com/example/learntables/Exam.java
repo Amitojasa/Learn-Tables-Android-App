@@ -69,7 +69,7 @@ public class Exam extends AppCompatActivity {
         });
 
         mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId(String.valueOf(R.string.ad_id));
+        mInterstitialAd.setAdUnitId("ca-app-pub-9868666530260111/8846278217");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         mInterstitialAd.setAdListener(new AdListener(){
@@ -202,10 +202,10 @@ public class Exam extends AppCompatActivity {
         }
 
         if (mInterstitialAd.isLoaded()) {
-         //   Toast.makeText(getApplicationContext(),"loaded",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"loaded",Toast.LENGTH_SHORT).show();
             mInterstitialAd.show();
         }else{
-         //   Toast.makeText(getApplicationContext(),"not loaded",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"not loaded",Toast.LENGTH_SHORT).show();
             endExamHelper();
         }
 
